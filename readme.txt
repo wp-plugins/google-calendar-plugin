@@ -28,8 +28,6 @@ e.g.
 Bye
 Walter
 
-== Frequently Asked Questions ==
-
 == Screenshots ==
 
 1. Preview of Google Calendar Plugin
