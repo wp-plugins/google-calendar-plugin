@@ -1,12 +1,10 @@
-=== WDM News ===
+=== Google Calendar Plugin ===
 Contributors: Walter Dal Mut
 Donate link: http://www.manosdepiedra.com/
 Tags: Google, Calendar, Google Calendar, share calendar, day, month, year
 Requires at least: 1.0
 Tested up to: 2.2
 Stable tag: 1.0
-
-This plugin show like widget a little sentence with date and time of publication.
 
 == Description ==
 
@@ -33,6 +31,10 @@ Walter
 1. Preview of Google Calendar Plugin
 2. Insert a new Calendar
 3. Uninstall page for eliminate all contributes of Google Calendar Plugin and change privileges.
+
+== Frequently Asked Questions ==
+
+Nothing...
 
 == Uninstall ==
 
