@@ -3,13 +3,13 @@
 Plugin Name: Google Calendar
 Plugin URI: http://www.walterdalmut.com
 Description: This plugin show the google calendar for your weblog wordpress. You can choose the priveleges must an user needle for use Google Calendar and you can stor a lot of calendar and see what you want in main pannel.
-Version: 1.0
+Version: 1.1
 Author: Walter Dal Mut
 Author URI: www.walterdalmut.com
 */
 
-//define('WP_DEBUG', true);
-//error_reporting( E_ALL );
+define('WP_DEBUG', true);
+error_reporting( E_ALL );
 
 define('GOOGLE_CALENDAR_ADM', 8);
 define('GOOGLE_CALENDAR_EDT', 3);
@@ -26,21 +26,17 @@ add_action('init', 'google_calendar_init');
 
 function google_calendar_init()
 {		
-	global $google_calendar_privileges, $google_path, $google_default, $google_installed;
-	
+	global $google_calendar_privileges, $table_prefix, $wpdb, $google_path, $google_default, $google_installed;
  	add_action('admin_menu', 'google_calendar_config_page');
  	
- 	if( !file_exists($google_path.'privileges.wdm') )
- 	{
- 		$google_default = true;
-		$google_calendar_privileges = GOOGLE_CALENDAR_ADM;
-	}	
-	else
-	{
-		$google_default = false;
-		$fid = fopen( $google_path."privileges.wdm", "r" );
-		$google_calendar_privileges = fread($fid, 1); 
-	}
+ 	$google_default = false;
+ 	
+ 	$query = "
+	 	SELECT meta_value AS mv 
+		FROM ".$table_prefix."google_calendar_privileges
+		WHERE meta_key = 'privileges'
+	 ";
+	$google_calendar_privileges = (int)$wpdb->get_var( $query );
 }
 
 function google_calendar_config_page() 
@@ -206,10 +202,13 @@ function google_calendar_admin_manage_page()
 	$changed = false;
 	if( isset($_POST["set"]) AND $_POST["set"] == "Set Privileges" )
 	{
-		$fid = fopen($google_path."privileges.wdm", "w");
-		fwrite( $fid, $_POST["privileges"] );
+		$query = "
+			UPDATE ".$table_prefix."google_calendar_privileges
+			SET meta_value = '".$_POST["privileges"]."'
+			WHERE meta_key = 'privileges'
+		";
+		$wpdb->query( $query );
 		$changed = true;
-		fclose($fid);
 	}
 	else
 		$changed = false;
@@ -220,6 +219,11 @@ function google_calendar_admin_manage_page()
 			DROP TABLE ".$table_prefix."google_calendar
 		";
 		mysql_query( $query ) or die( mysql_error() );
+		$query = "
+			DROP TABLE ".$table_prefix."google_calendar_privileges
+		";
+		mysql_query( $query ) or die( mysql_error() );
+		
 		$installed = google_calendar_installed();
 		if( !$installed )
 			echo "PLUGIN CORRECTLY UNINSTALLED, DON'T PASSING IN OTHER GOOGLE CALENDAR MENUS, GO TO WIDGET SECTION AND DEACTIVATE THE PLUGIN!";
@@ -268,7 +272,14 @@ function google_calendar_installed()
 	if( $install === NULL )
 		return false;
 	else
-		return true;
+	{
+		$query = "SHOW TABLES LIKE '".$table_prefix."google_calendar_privileges'";
+		$install = $wpdb->get_var( $query );
+		if( $install === NULL )
+			return false;
+		else 
+			return true;
+	}
 }
 
 function google_calendar_install()
@@ -286,6 +297,23 @@ function google_calendar_install()
 		)
 	";
 	$wpdb->query( $query );
+	
+	$query = "
+		CREATE TABLE ".$table_prefix."google_calendar_privileges (
+			meta_key VARCHAR(255) NOT NULL,
+			meta_value VARCHAR(255) NOT NULL,
+			PRIMARY KEY( meta_key )
+		)
+	";
+	$wpdb->query($query);
+	
+	$query = "
+		INSERT INTO ".$table_prefix."google_calendar_privileges 
+		( meta_key, meta_value )
+		VALUES ( 'privileges', '2')
+	";
+	$wpdb->query( $query );
+	
 	if( !google_calendar_installed() )
 		return false;
 	else
