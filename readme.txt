@@ -6,6 +6,8 @@ Requires at least: 1.0
 Tested up to: 2.2
 Stable tag: 1.0
 
+This plugin show your google calendar in your weblog wordpress admin pannel.
+
 == Description ==
 
 This plugin show the google calendar in your weblog wordpress admin pannel.
