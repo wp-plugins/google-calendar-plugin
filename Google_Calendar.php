@@ -3,13 +3,13 @@
 Plugin Name: Google Calendar
 Plugin URI: http://www.walterdalmut.com
 Description: This plugin show the google calendar for your weblog wordpress. You can choose the priveleges must an user needle for use Google Calendar and you can stor a lot of calendar and see what you want in main pannel.
-Version: 1.1
+Version: 1.2
 Author: Walter Dal Mut
 Author URI: www.walterdalmut.com
 */
 
-define('WP_DEBUG', true);
-error_reporting( E_ALL );
+//define('WP_DEBUG', true);
+//error_reporting( E_ALL );
 
 define('GOOGLE_CALENDAR_ADM', 8);
 define('GOOGLE_CALENDAR_EDT', 3);
