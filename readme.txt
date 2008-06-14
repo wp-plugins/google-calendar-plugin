@@ -12,7 +12,7 @@ This plugin show your google calendar in your weblog wordpress admin pannel.
 
 This plugin show the google calendar in your weblog wordpress admin pannel.
 You can choose the priveleges must an user needle for use Google Calendar Plugin and you can store a lot of calendar and see what you want in main pannel.
-An administrator and olny he can share some calendar and all other users see that calendar in admin page
+An administrator and olny he can share some calendar and all other users see that calendar in admin page.
 
 == Installation ==
 
