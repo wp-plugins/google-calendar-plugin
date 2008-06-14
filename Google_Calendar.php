@@ -8,8 +8,8 @@ Author: Walter Dal Mut
 Author URI: www.walterdalmut.com
 */
 
-define('WP_DEBUG', true);
-error_reporting( E_ALL );
+//define('WP_DEBUG', true);
+//error_reporting( E_ALL );
 
 define('GOOGLE_CALENDAR_ADM', 8);
 define('GOOGLE_CALENDAR_EDT', 3);
