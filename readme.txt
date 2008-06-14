@@ -4,7 +4,7 @@ Donate link: http://www.manosdepiedra.com/
 Tags: Google, Calendar, Google Calendar, share calendar, day, month, year
 Requires at least: 1.0
 Tested up to: 2.2
-Stable tag: 1.2
+Stable tag: 1.3
 
 This plugin show your google calendar in your weblog wordpress admin pannel.
 
@@ -25,6 +25,8 @@ e.g.
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Use it!
 
+WARNING! If you want upgrade, please see the upgrade section under Other section.
+
 Bye
 Walter
 
@@ -41,3 +43,8 @@ Nothing...
 == Uninstall ==
 
 WARNING! The Uninstall link in Admin Page not have a confirm question, one click and you delete all contributes of Google Calendar Plugin
+
+== Upgrade ==
+
+If you want upgrade from 1.2 to 1.3 version you must uninstall the 1.2 version and remove the plugin from wordpress directory. When you have uninstall and remove the old version you can upload 1.3 version to wp plugin directory, activate plugin and use the new version of Google Calendar Plugin.
+This version it's more efficiency about Data Base Using.

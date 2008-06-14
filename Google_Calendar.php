@@ -3,7 +3,7 @@
 Plugin Name: Google Calendar
 Plugin URI: http://www.walterdalmut.com
 Description: This plugin show the google calendar for your weblog wordpress. You can choose the priveleges must an user needle for use Google Calendar and you can stor a lot of calendar and see what you want in main pannel.
-Version: 1.2
+Version: 1.3
 Author: Walter Dal Mut
 Author URI: www.walterdalmut.com
 */
@@ -31,12 +31,7 @@ function google_calendar_init()
  	
  	$google_default = false;
  	
- 	$query = "
-	 	SELECT meta_value AS mv 
-		FROM ".$table_prefix."google_calendar_privileges
-		WHERE meta_key = 'privileges'
-	 ";
-	$google_calendar_privileges = (int)$wpdb->get_var( $query );
+	$google_calendar_privileges = (int)get_option("google_calendar_privileges");
 }
 
 function google_calendar_config_page() 
@@ -202,12 +197,7 @@ function google_calendar_admin_manage_page()
 	$changed = false;
 	if( isset($_POST["set"]) AND $_POST["set"] == "Set Privileges" )
 	{
-		$query = "
-			UPDATE ".$table_prefix."google_calendar_privileges
-			SET meta_value = '".$_POST["privileges"]."'
-			WHERE meta_key = 'privileges'
-		";
-		$wpdb->query( $query );
+		update_option( "google_calendar_privileges", $_POST["privileges"] );
 		$changed = true;
 	}
 	else
@@ -272,14 +262,7 @@ function google_calendar_installed()
 	if( $install === NULL )
 		return false;
 	else
-	{
-		$query = "SHOW TABLES LIKE '".$table_prefix."google_calendar_privileges'";
-		$install = $wpdb->get_var( $query );
-		if( $install === NULL )
-			return false;
-		else 
-			return true;
-	}
+		return true;
 }
 
 function google_calendar_install()
@@ -297,23 +280,10 @@ function google_calendar_install()
 		)
 	";
 	$wpdb->query( $query );
-	
-	$query = "
-		CREATE TABLE ".$table_prefix."google_calendar_privileges (
-			meta_key VARCHAR(255) NOT NULL,
-			meta_value VARCHAR(255) NOT NULL,
-			PRIMARY KEY( meta_key )
-		)
-	";
-	$wpdb->query($query);
-	
-	$query = "
-		INSERT INTO ".$table_prefix."google_calendar_privileges 
-		( meta_key, meta_value )
-		VALUES ( 'privileges', '2')
-	";
-	$wpdb->query( $query );
-	
+
+	//Using option for google calendar plugin!
+	add_option( "google_calendar_privileges", "2" );
+
 	if( !google_calendar_installed() )
 		return false;
 	else
