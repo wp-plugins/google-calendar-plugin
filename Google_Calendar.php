@@ -3,7 +3,7 @@
 Plugin Name: Google Calendar
 Plugin URI: http://www.walterdalmut.com
 Description: This plugin show the google calendar for your weblog wordpress. You can choose the priveleges must an user needle for use Google Calendar and you can stor a lot of calendar and see what you want in main pannel.
-Version: 1.3
+Version: 1.4
 Author: Walter Dal Mut
 Author URI: www.walterdalmut.com
 */
@@ -92,7 +92,7 @@ function google_calendar_main_page()
 	{
 		?>
 		<h2>Google Calendar</h2>
-		<form method="POST" action="admin.php?page=Google%20Calendar%20Wordpress/Google_Calendar.php">
+		<form method="POST" action="<?PHP echo $_SERVER["PHP_SELF"]."?page=".$_GET["page"]; ?>">
 		<b>Choose the calendar which you want view: </b><select name="name">
 			<?php
 				$query = "
@@ -178,7 +178,7 @@ function google_calendar_manage_page()
 				echo '<h4 align="center">Your calendar are now saved, go to Google Calendar section for view it!</h4>';
 				
 		?>
-		<form action="admin.php?page=maintenance" method="POST">
+		<form action="<?php echo $_SERVER["PHP_SELF"]."?page=".$_GET["page"]; ?>" method="POST">
 			<p><b>Google Calendar Name: </b><br /><input type="text" size="50" name="name" value="" /></p>
 			<p><b>Google Calendar Code: </b><br /><textarea name="code" rows="5" cols="60"></textarea></p>
 			<?php
@@ -209,10 +209,8 @@ function google_calendar_admin_manage_page()
 			DROP TABLE ".$table_prefix."google_calendar
 		";
 		mysql_query( $query ) or die( mysql_error() );
-		$query = "
-			DROP TABLE ".$table_prefix."google_calendar_privileges
-		";
-		mysql_query( $query ) or die( mysql_error() );
+		
+		delete_option( 'google_calendar_privileges' ); //Removing option from database...
 		
 		$installed = google_calendar_installed();
 		if( !$installed )
@@ -225,7 +223,7 @@ function google_calendar_admin_manage_page()
 	<div class="wrap">
 		<h2>Admin Settings</h2>
 		<?php if( $changed ) echo "<h4 align=\"center\">Privileges are now changed!</h4>" ?>
-		<form action="admin.php?page=admin_maitenance" method="POST">
+		<form action="<?php echo $_SERVER["PHP_SELF"]."?page=".$_GET["page"]; ?>" method="POST">
 			<p><span>Google Calendar Plugin use privileges:</span>
 				<select name="privileges">
 					<option value="0">Subscriber</option>
