@@ -21,7 +21,6 @@ This section describes how to install the plugin and get it working.
 e.g.
 
 1. Upload `Google Calendar Plugin` Directory to the `/wp-content/plugins/` directory
-1.1 Assign 666 (rw-rw-rw on Linux) to privileges.wdm file.
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Use it!
 
