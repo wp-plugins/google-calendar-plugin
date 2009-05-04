@@ -1,6 +1,6 @@
 === Google Calendar Plugin ===
 Contributors: Walter Dal Mut
-Donate link: http://www.manosdepiedra.com/
+Donate link: http://www.walterdalmut.com/
 Tags: Google, Calendar, Google Calendar, share calendar, day, month, year
 Requires at least: 1.0
 Tested up to: 2.2
